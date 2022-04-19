@@ -8,7 +8,7 @@ import com.ubaya.adv160419162week8.R
 import com.ubaya.adv160419162week8.model.Todo
 import kotlinx.android.synthetic.main.layout_todo_item.view.*
 
-class TodoListAdapter(val todoList:ArrayList<Todo>):RecyclerView.Adapter<TodoListAdapter.TodoViewHolder>() {
+class TodoListAdapter(val todoList:ArrayList<Todo>, val adapterOnClick:(Todo)-> Unit):RecyclerView.Adapter<TodoListAdapter.TodoViewHolder>() {
     class  TodoViewHolder(var view:View):RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
@@ -20,6 +20,9 @@ class TodoListAdapter(val todoList:ArrayList<Todo>):RecyclerView.Adapter<TodoLis
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         holder.view.checkTask.setText(todoList[position].title)
+        holder.view.checkTask.setOnCheckedChangeListener { compoundButton, b ->
+            if(b) adapterOnClick(todoList[position])
+        }
     }
 
     override fun getItemCount() = todoList.size

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ubaya.adv160419162week8.R
+import com.ubaya.adv160419162week8.model.Todo
 import com.ubaya.adv160419162week8.viewmodel.TodoListViewModel
 import kotlinx.android.synthetic.main.fragment_todo_list.*
 
@@ -17,7 +18,9 @@ import kotlinx.android.synthetic.main.fragment_todo_list.*
 class TodoListFragment : Fragment() {
 
     private lateinit var viewModel:TodoListViewModel
-    private var todoListAdapter = TodoListAdapter(arrayListOf())
+    private var todoListAdapter = TodoListAdapter(arrayListOf()){
+            viewModel.clearTask(it)
+        }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
