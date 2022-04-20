@@ -3,6 +3,7 @@ package com.ubaya.adv160419162week8.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.ubaya.adv160419162week8.R
 import com.ubaya.adv160419162week8.model.Todo
@@ -20,8 +21,14 @@ class TodoListAdapter(val todoList:ArrayList<Todo>, val adapterOnClick:(Todo)-> 
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         holder.view.checkTask.setText(todoList[position].title)
-        holder.view.checkTask.setOnCheckedChangeListener { compoundButton, b ->
-            if(b) adapterOnClick(todoList[position])
+        holder.view.imgEdit.setOnClickListener {
+            val action = TodoListFragmentDirections.actionTodoListFragmentToEditTodoFragment(todoList[position].uuid)
+            Navigation.findNavController(it).navigate(action)
+        }
+        holder.view.checkTask.setOnCheckedChangeListener { compoundButton, isChecked ->
+            if(isChecked){
+                adapterOnClick(todoList[position])
+            }
         }
     }
 
