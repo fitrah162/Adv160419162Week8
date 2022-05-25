@@ -11,11 +11,8 @@
             name="radioListener"
             type="com.ubaya.adv160419162week8.view.RadioButtonListener" />
         <variable
-            name="addListener"
-            type="com.ubaya.adv160419162week8.view.ButtonAddTodoClickListener" />
-        <variable
-            name="dateListener"
-            type="com.ubaya.adv160419162week8.view.TodoDateListener" />
+            name="saveListener"
+            type="com.ubaya.adv160419162week8.view.TodoSaveChangeListener" />
 
     </data>
 
@@ -32,7 +29,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/aldrich"
-            android:text="New ToDo"
+            android:text="Edit ToDo"
             android:textSize="34sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -78,17 +75,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="0dp"
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="216dp"
-            android:layout_marginEnd="8dp"
-            android:onClick="@{addListener::onButtonAddTodo}"
-            android:text="Add Todo"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Save Changes"
+            android:onClick="@{(view)->saveListener.onSaveChangeClick(view, todo)}"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroupPriority" />
 
         <RadioGroup
@@ -104,7 +98,7 @@
                 android:id="@+id/radioHigh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="true"
+                android:checked="@{todo.priority == 3? true: false}"
                 android:tag="3"
                 android:onClick="@{(view)->radioListener.onRadioClick(view,3, todo)}"
                 android:text="High Priority" />
@@ -113,6 +107,7 @@
                 android:id="@+id/radioMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="@{todo.priority == 2? true: false}"
                 android:tag="2"
                 android:onClick="@{(view)->radioListener.onRadioClick(view,2, todo)}"
                 android:text="Medium Priority" />
@@ -121,6 +116,7 @@
                 android:id="@+id/radioLow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="@{todo.priority ==1}"
                 android:tag="1"
                 android:onClick="@{(view)->radioListener.onRadioClick(view,1, todo)}"
                 android:text="Low Priority" />
@@ -136,48 +132,6 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout3"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:endIconCheckable="false"
-            app:endIconDrawable="@drawable/ic_baseline_calendar_today_24"
-            app:endIconMode="custom"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
-            app:layout_constraintStart_toStartOf="@+id/radioGroupPriority"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroupPriority">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusableInTouchMode="false"
-                android:hint="Pick a Date"
-                android:onClick="@{dateListener::onDateClick}" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:endIconDrawable="@drawable/ic_baseline_access_time_24"
-            app:endIconMode="custom"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusableInTouchMode="false"
-                android:hint="Pick a Time"
-                android:onClick="@{dateListener::onTimeClick}"/>
-        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
